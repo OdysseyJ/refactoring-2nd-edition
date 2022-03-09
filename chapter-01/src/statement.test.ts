@@ -2,6 +2,7 @@ import invoicesData from './mock/invoices.json';
 import playsData from './mock/plays.json';
 
 import beforeStatement from './statement.before';
+import practiceStatement from './statement.practice';
 import { plainStatement, htmlStatement } from './statement.after';
 
 const RECEIPT = `청구내역 (고객명: BigCo)
@@ -24,6 +25,12 @@ const RECEIPT_DOM_STRING = `<h1>청구 내역 (고객명: BigCo )</h1>
 describe('비디오 대여점에서 영수증을 출력하는 프로그램', () => {
   const [invoice] = JSON.parse(JSON.stringify(invoicesData));
   const plays = JSON.parse(JSON.stringify(playsData));
+
+  test('연습해보기', () => {
+    expect(practiceStatement(invoice, plays).replace(/\s/g, '')).toMatch(
+        RECEIPT.replace(/\s/g, ''),
+    );
+  });
 
   test('첫 번째 예시', () => {
     expect(beforeStatement(invoice, plays).replace(/\s/g, '')).toMatch(
